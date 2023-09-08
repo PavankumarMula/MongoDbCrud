@@ -20,10 +20,10 @@ app.use(expenseRouter);
 const PORT = process.env.PORT_NUMBER || 4000
 
 // connecting to mongodb database
-mongoose.connect(process.env.MONGODB_URL,{
+mongoose.connect(`${process.env.MONGODB_URL}`,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  
 
 })
 .then(result=>{
