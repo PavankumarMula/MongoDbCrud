@@ -1,5 +1,8 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+const envfile=require('dotenv').config({path:"./.env"}).parsed;
+
+const mongourl=envfile.MONGO_URI;
+const port = envfile.PORT_NUMBER;
 
 const express = require("express");
 const app = express();
@@ -17,16 +20,16 @@ const expenseRouter = require("./routes/expenseRouter");
 app.use(userRouter);
 app.use(expenseRouter);
 
-const PORT = process.env.PORT_NUMBER || 4000;
-const mongoUrl = process.env.MONGO_URI;
+// const PORT = process.env.PORT_NUMBER || 4000;
+// const mongoUrl = process.env.MONGO_URI;
 
 // connecting to mongodb database
-mongoose.connect(mongoUrl, {
+mongoose.connect(mongourl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(result => {
   console.log(`MongoDb is connected<<<<<<<<`);
-  app.listen(PORT);
+  app.listen(port);
 })
 .catch(err => console.log(err));
